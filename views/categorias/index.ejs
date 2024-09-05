@@ -1,9 +1,19 @@
 <h1>Lista de categorias</h1>
+
+<form id="searchForm" method="GET" action="/categorias" style="margin-bottom: 20px;">
+    <div class="form-group">
+        <label for="search">Buscar Categoria:</label>
+        <input type="text" id="search" name="search" class="form-control" value="<%= search %>" placeholder="Digite o nome da categoria" autocomplete="off">
+    </div>
+    <button type="submit" class="btn btn-primary">Search</button>
+</form>
+
 <table class="table">
     <thead>
         <tr>
             <th>ID</th>
             <th>Categoria</th>
+            <th>Ações</th>
         </tr>
     </thead>
     <tbody>

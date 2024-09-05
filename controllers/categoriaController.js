@@ -78,6 +78,17 @@ const categoriaController = {
             }
             res.redirect('/categorias');
         });
+    },
+
+    searchCategorias: (req, res) => {
+        const search = req.query.search || '';
+
+        Categoria.searchByName(search, (err, categorias) => {
+            if (err) {
+                return res.status(500).json({ error: err });
+            }
+            res.render('categorias/index', { categorias, search });
+        });
     }
 };
 

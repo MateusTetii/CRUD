@@ -9,5 +9,6 @@ router.get('/:id', categoriaController.getCategoriaById);
 router.get('/:id/edit', categoriaController.renderEditForm);
 router.put('/:id', categoriaController.updateCategoria);
 router.delete('/:id', categoriaController.deleteCategoria);
+router.get('/search', categoriaController.searchCategorias);
 
 module.exports = router;
