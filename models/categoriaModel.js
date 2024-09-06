@@ -69,7 +69,7 @@ const Categoria = {
             }
             callback(null, results);
         });
-    }
+    },
 };
 
 module.exports = Categoria;
