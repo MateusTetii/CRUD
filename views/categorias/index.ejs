@@ -1,14 +1,11 @@
 <h1>Lista de categorias</h1>
 
-<form id="searchForm" method="GET" action="/categorias" style="margin-bottom: 20px;">
+<form id="searchForm" method="GET" action="/categorias">
     <div class="form-group">
-        <label for="search">Buscar Categoria:</label>
-        <input type="text" id="search" name="search" class="form-control" value="<%= search %>" placeholder="Digite o nome da categoria" autocomplete="off">
+        <label for="search">Buscar Categorias:</label>
+        <input type="text" id="search" name="search" class="form-control" placeholder="Digite o nome da categoria" autocomplete="off">
     </div>
-    <button type="submit" class="btn btn-primary">Search</button>
 </form>
-
-<p>Search Term: <%= search %></p> <!-- Adicione esta linha para depuração -->
 
 <table class="table">
     <thead>
