@@ -1,75 +1,50 @@
 const db = require('../config/db');
+const bcrypt = require('bcrypt');
 
 const User = {
-    create: (user, callback) => {
+    create: async (user) => {
+        const hashPassword = await bcrypt.hash(user.password, 10); // Criptografando senha
         const query = 'INSERT INTO users (username, password, role) VALUES (?, ?, ?)';
-        db.query(query, [user.username, user.password, user.role], (err, results) => {
-            if (err) {
-                return callback(err);
-            }
-            callback(null, results.insertId);
-        });
+        const [results] = await db.query(query, [user.username, hashPassword, user.role]);
+        return results.insertId;
     },
 
-    findById: (id, callback) => {
+    findById: async (id) => {
         const query = 'SELECT * FROM users WHERE id = ?';
-        db.query(query, [id], (err, results) => {
-            if (err) {
-                return callback(err);
-            }
-            callback(null, results[0]);
-        });
+        const [results] = await db.query(query, [id]);
+        return results[0];
     },
 
-    findByUsername: (username, callback) => {
+    findByUsername: async (username) => {
         const query = 'SELECT * FROM users WHERE username = ?';
-        db.query(query, [username], (err, results) => {
-            if (err) {
-                return callback(err);
-            }
-            callback(null, results[0]);
-        });
+        const [results] = await db.query(query, [username]);
+        return results[0];
     },
 
-    update: (id, user, callback) => {
+    update: async (id, user) => {
+        const hashPassword = await bcrypt.hash(user.password, 10);
         const query = 'UPDATE users SET username = ?, password = ?, role = ? WHERE id = ?';
-        db.query(query, [user.username, user.password, user.role, id], (err, results) => {
-            if (err) {
-                return callback(err);
-            }
-            callback(null, results);
-        });
+        const [results] = await db.query(query, [user.username, hashPassword, user.role, id]);
+        return results;
     },
 
-    delete: (id, callback) => {
+    delete: async (id) => {
         const query = 'DELETE FROM users WHERE id = ?';
-        db.query(query, [id], (err, results) => {
-            if (err) {
-                return callback(err);
-            }
-            callback(null, results);
-        });
+        const [results] = await db.query(query, [id]);
+        return results;
     },
 
-    getAll: (callback) => {
+    getAll: async () => {
         const query = 'SELECT * FROM users';
-        db.query(query, (err, results) => {
-            if (err) {
-                return callback(err);
-            }
-            callback(null, results);
-        });
+        const [results] = await db.query(query);
+        return results;
     },
 
-    searchByName: (name, callback) => {
+    searchByName: async (name) => {
         const query = 'SELECT * FROM users WHERE username LIKE ?';
-        db.query(query, [`%${name}%`], (err, results) => {
-            if (err) {
-                return callback(err);
-            }
-            callback(null, results);
-        });
-    },    
+        const [results] = await db.query(query, [`%${name}%`]);
+        return results;
+    },
 };
 
 module.exports = User;
